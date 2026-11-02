@@ -5,10 +5,10 @@
   "license": "ISC",
   "author": "Sharify",
   "type": "commonjs",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js"
+    "dev": "nodemon src/app.js"
   },
   "dependencies": {
     "chalk": "^6.0.1",
