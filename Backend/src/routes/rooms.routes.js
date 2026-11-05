@@ -35,4 +35,51 @@ router.get('/rooms', authMiddleware, (req, res) => {
 })
 
 
+router.delete('/rooms/:id', authMiddleware, (req, res) => {
+    const { id } = req.params
+
+    chatDB
+        .query('DELETE FROM room WHERE id=' + id)
+        .then(() => res.json({message: 'Deleted Succesfully'}))
+        .catch(() => res.json({error: 'delete not happend!'}))
+})
+
+
+router.post('/rooms', authMiddleware, (req, res) => {
+    const { description, type, cover } = req.body
+    chatDB
+        .query(`INSERT INTO room (description, type, cover) VALUES ('${description}', '${type}', '${cover}') RETURNING *;`)
+        .then((result) => res.json(result.rows))
+        .catch((error) => res.json(error))
+})
+
+router.post('/room-member', authMiddleware, (req, res) => {
+    const { room_id, user_id } = req.body
+    if (!user_id) {
+        user_id = req?.user?.id
+    }
+    chatDB
+        .query(`INSERT INTO room_member (user_id, room_id) VALUES (${user_id}, ${room_id});`)
+        .then(() => {
+            res.json({
+                message: 'Succefully Added to Group or Personal'
+            })
+        })
+        .catch(() => {
+            res.json({error: 'User Cant Join This Group or Personal Chat'})
+        })
+})
+
+// uuid: 123abc-123@#$, 21kjafsdf123213, 12312312;lkfajsd, 
+// id: 1, 2, 3, 5, 6, 7, 8, 9 ...
+
+router.delete('/room-member/:id', authMiddleware, (req, res) => {
+    const { id } = req.params
+    chatDB
+        .query('DELETE FROM room_member WHERE id=' + id)
+        .then(() => res.json({message: 'Deleted Succesfully'}))
+        .catch(() => res.json({error: 'delete not happend!'}))
+})
+
+
 module.exports = router
