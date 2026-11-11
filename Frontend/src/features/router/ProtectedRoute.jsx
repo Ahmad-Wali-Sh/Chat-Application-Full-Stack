@@ -10,13 +10,12 @@ function RedirectPage() {
 }
 
 function ProtectedRoute({ element }) {
-    const { token } = useToken()
+  const { token } = useToken()
 
   return (
+    // element // Development Case
     token ? element : <RedirectPage />
   )
 }
-
-
 
 export default ProtectedRoute
