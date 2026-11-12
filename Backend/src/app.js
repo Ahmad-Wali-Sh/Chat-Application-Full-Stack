@@ -11,12 +11,14 @@ const serverRoutes = require('./routes/server.routes')
 const authRoutes = require('./routes/auth.routes')
 const roomsRoutes = require('./routes/rooms.routes')
 const messageRoutes = require('./routes/message.routes')
+const userRoutes = require('./routes/user.routes')
 
 
 app.use('/', serverRoutes)
 app.use('/auth', authRoutes)
 app.use('/', roomsRoutes)
 app.use('/', messageRoutes)
+app.use('/', userRoutes)
 
 
 app.listen(PORT, () => console.log(chalk.bgGreen('Server PORT: ' + PORT)))

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router"
 import { toast } from 'react-toastify'
 import useToken from "../stores/useToken"
+import useMe from "../stores/useMe"
 
 
 function Login() {
@@ -16,6 +17,7 @@ function Login() {
     })
     
     const navigate = useNavigate()
+    const { setUser } = useMe()
     
     const { setToken } = useToken()
 
@@ -27,6 +29,7 @@ function Login() {
                 if (result.data.token) {
                     toast.success('Succesful')
                     setToken(result.data.token)
+                    setUser(result.data.user)
                     navigate('/chats')
                 }
                 else {

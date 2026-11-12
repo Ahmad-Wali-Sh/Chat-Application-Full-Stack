@@ -45,7 +45,8 @@ router.post('/login', (req, res) => {
                     const token = jwt.sign(user, JWT_SECRET)
                     res.json({
                         message: 'Authentication Succesfull',
-                        token: token
+                        token: token,
+                        user: user
                     })
                  }
                  else {
