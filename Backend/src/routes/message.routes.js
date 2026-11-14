@@ -21,13 +21,13 @@ router.get('/messages/:room_id',authMiddleware, (req, res) => {
     // // room_id
 
 router.post('/messages', authMiddleware, (req, res) => {
-    const { text, reply_id, assets, room_id } = req.body
+    const { text, room_id } = req.body
     const user_id = req.user.id
 
     chatDB
     .query(`
-        INSERT INTO message (text, user_id, reply_id, assets, room_id)
-        VALUES ('${text}', '${user_id}', '${reply_id}, '${assets}', '${room_id}') RETURNING *;
+        INSERT INTO message (text, user_id, room_id)
+        VALUES ('${text}', '${user_id}', '${room_id}') RETURNING *;
     `)
     .then(result => res.json(result.rows))
     .catch(error => res.json(error))
